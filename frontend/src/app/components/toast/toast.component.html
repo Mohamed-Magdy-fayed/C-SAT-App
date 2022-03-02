@@ -1,0 +1,9 @@
+<div class="toast-container">
+  <button class="{{toastData.isShowen ? 'show' : 'hide'}}" mat-raised-button
+    color="{{ toastData.isError ? 'warn' : 'accent'}}">
+    {{toastData.msg}}
+    <button mat-icon-button color="{{toastData.isError ? 'primary' : 'warn'}}" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </button>
+</div>

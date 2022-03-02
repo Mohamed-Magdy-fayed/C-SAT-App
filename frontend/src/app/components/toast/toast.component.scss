@@ -1,0 +1,20 @@
+.toast-container {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  overflow-x: hidden;
+
+  .show {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0%);
+    transition: all 300ms ease-in-out;
+  }
+
+  .hide {
+    position: relative;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 300ms ease-in-out;
+  }
+}

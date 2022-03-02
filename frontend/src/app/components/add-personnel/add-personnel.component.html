@@ -1,0 +1,30 @@
+<div class="add-page">
+  <mat-card class="form add-card">
+    <form class="form">
+      <div class="title">
+        <h1>title</h1>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Person Name</mat-label>
+        <input type="text" [formControl]="personName" required matInput placeholder="EX. John Doe">
+        <mat-error *ngIf="personName.invalid">{{getError()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Question 1</mat-label>
+        <input type="text" [formControl]="question1" required matInput
+          placeholder="How did you like the agent resolution">
+        <mat-error *ngIf="personName.invalid">{{getError()}}</mat-error>
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="accent">
+          <span>Add Question</span>
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-raised-button color="primary">
+          <span>Submit</span>
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

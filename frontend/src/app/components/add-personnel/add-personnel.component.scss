@@ -1,0 +1,17 @@
+.add-page {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1rem 1fr 1rem;
+
+  .title {
+    text-align: center;
+  }
+}
+
+.form {
+  grid-column: 2;
+}
+
+.add-card {
+  margin-top: 1rem;
+}

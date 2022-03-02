@@ -1,0 +1,10 @@
+.main-admin {
+  display: flex;
+  flex-direction: column;
+
+  .adimn-tools {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}

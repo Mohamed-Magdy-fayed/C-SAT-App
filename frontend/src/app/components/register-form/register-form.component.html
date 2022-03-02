@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header class="card-header">Register Now!</mat-card-header>
+  <br>
+  <mat-card-content>
+    <form class="form" (ngSubmit)="registerUser($event)">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input type="text" [formControl]="name" required matInput placeholder="EX: John">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" [formControl]="email" required matInput placeholder="EX: John@email.com">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input type="password" [formControl]="password" required matInput placeholder="Enter your password">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password Confirmation</mat-label>
+        <input type="password" [formControl]="passwordConfirmation" required matInput placeholder="Confirm your password">
+      </mat-form-field>
+      <mat-error *ngIf="isError">{{getError()}}</mat-error>
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary">Register</button>
+        <button type="button" mat-button color="accent" [routerLink]="['/login']" >Go to login page</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>
