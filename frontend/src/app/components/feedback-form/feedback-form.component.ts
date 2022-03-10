@@ -28,26 +28,7 @@ export class FeedbackFormComponent implements OnInit {
     return
   }
 
-  setFeedback (input: string) {
-    switch (input) {
-      case 'one':
-        return this.feedbackData.setFeedback(false)
-      case 'two':
-        return this.feedbackData.setFeedback(null)
-      case 'three':
-        return this.feedbackData.setFeedback(true)
-      default:
-        return
-    }
-  }
-
   sendFeedback(event: Event) {
     event.preventDefault()
-    if (this.feedback.hasError('required')) {
-      this.getfeedbackError()
-      return
-    } else {
-      this.setFeedback(this.feedback.value)
-    }
   }
 }

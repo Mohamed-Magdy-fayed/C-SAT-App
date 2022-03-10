@@ -1,1 +1,65 @@
-service
+<div class="add-page">
+  <mat-card class="form add-card">
+    <form class="form" (ngSubmit)="handleSubmit($event)">
+      <mat-card-title>
+        <p>Add Service</p>
+      </mat-card-title>
+      <mat-card-content>
+        <div class="flex row space-between">
+          <mat-form-field appearance="outline">
+            <mat-label>Service Name</mat-label>
+            <input type="text" [formControl]="name" required matInput placeholder="Tie House" name="name">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Service Code</mat-label>
+            <input type="text" [formControl]="code" required matInput placeholder="1234" name="code">
+          </mat-form-field>
+        </div>
+        <div *ngFor="let input of inputs" class="flex col">
+          <div class="flex row space-between">
+            <div class="question">
+              <mat-form-field appearance="outline">
+                <mat-label>Question</mat-label>
+                <input [formControl]="input.controls.question" required matInput
+                  placeholder="Ex. Did you like the service?" name="question{{input}}">
+              </mat-form-field>
+              <div>
+                <button type="button" class="close-btn" mat-button color="warn" (click)="RemoveField(input.id)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="flex col">
+              <mat-form-field appearance="outline">
+                <mat-label>Option 1</mat-label>
+                <input [formControl]="input.controls.option1" required matInput placeholder="Ex. satisfied" type="text"
+                  name="option 1">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Option 2</mat-label>
+                <input [formControl]="input.controls.option2" required matInput placeholder="Ex. neutral" type="text"
+                  name="option 2">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Option 3</mat-label>
+                <input [formControl]="input.controls.option3" required matInput placeholder="Ex. Dissatisfied"
+                  type="text" name="option 3">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button type="button" mat-raised-button color="accent" (click)="addField()">
+          <span>Add Question</span>
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" type="submit">
+          <span>Submit</span>
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

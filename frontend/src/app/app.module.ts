@@ -22,6 +22,7 @@ import { AddPersonnelComponent } from './components/add-personnel/add-personnel.
 import { MainComponent } from './components/main/main.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { serviceReducer } from './store/reducers/feedback.reducer';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
@@ -60,7 +61,8 @@ export const metaReducers: MetaReducer<any>[] = [debug];
     ReactiveFormsModule,
     StoreModule.forRoot({
       User: userReducer,
-      Toast: toastReducer
+      Toast: toastReducer,
+      Service: serviceReducer,
     }, { metaReducers })
   ],
   providers: [],
