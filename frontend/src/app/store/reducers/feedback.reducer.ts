@@ -1,6 +1,7 @@
 import { addService, removeService, setServices } from './../actions/feedback.action';
 import { createReducer, on } from '@ngrx/store';
 import { Service } from 'src/app/interfaces/Service';
+import { state } from '@angular/animations';
 
 export const initialState: Service[] = []
 
@@ -10,11 +11,6 @@ export const serviceReducer = createReducer(
     ...state,
     service,
   })),
-  on(removeService, (state, { code }) => {
-    const index = state.findIndex(service => service.code === code)
-    return ({
-      ...state.splice(index, 1)
-    })
-  }),
+  on(removeService, (state, { code }) => state.filter(i => i.code !== code)),
   on(setServices, (state, { services }) => services)
 )

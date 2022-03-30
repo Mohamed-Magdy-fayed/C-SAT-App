@@ -1,40 +1,29 @@
-<mat-card>
+<mat-card *ngIf="!isLoading">
   <mat-card-title>
-    <p>Please rate the service</p>
+    <p>Please rate the service {{service.name}}</p>
   </mat-card-title>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <form class="form" (ngSubmit)="sendFeedback($event)">
-      <mat-form-field appearance="fill">
-        <mat-label>Service Speed</mat-label>
-        <mat-select [formControl]="feedback" required="">
-          <mat-option value="one">dissatisfied</mat-option>
-          <mat-option value="two">natural</mat-option>
-          <mat-option value="three">satisfied</mat-option>
+    <form class="form" (ngSubmit)="sendFeedback($event)" *ngIf="!isAnswered">
+      <mat-form-field *ngFor="let question of questions" appearance="fill">
+        <mat-label>{{question.question.question}}</mat-label>
+        <mat-select [formControl]="question.control" required="">
+          <mat-option value="option1">{{question.question.option1.text}}</mat-option>
+          <mat-option value="option2">{{question.question.option2.text}}</mat-option>
+          <mat-option value="option3">{{question.question.option3.text}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="feedback.invalid">{{getfeedbackError()}}</mat-error>
+        <mat-error *ngIf="question.control.invalid">{{getfeedbackError()}}</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Service Cost</mat-label>
-        <mat-select [formControl]="feedback" required="">
-          <mat-option value="one">dissatisfied</mat-option>
-          <mat-option value="two">natural</mat-option>
-          <mat-option value="three">satisfied</mat-option>
-        </mat-select>
-        <mat-error *ngIf="feedback.invalid">{{getfeedbackError()}}</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Service Reachablity</mat-label>
-        <mat-select [formControl]="feedback" required="">
-          <mat-option value="one">dissatisfied</mat-option>
-          <mat-option value="two">natural</mat-option>
-          <mat-option value="three">satisfied</mat-option>
-        </mat-select>
-        <mat-error *ngIf="feedback.invalid">{{getfeedbackError()}}</mat-error>
-      </mat-form-field>
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary" [disabled]="isAnswered">Send</button>
+      </mat-card-actions>
     </form>
+    <div class="thanks" *ngIf="isAnswered">
+      <h1>Thanks for your feedback!</h1>
+    </div>
   </mat-card-content>
   <mat-divider></mat-divider>
-  <mat-card-actions><button type="submit" mat-raised-button color="primary">Send</button>
-  </mat-card-actions>
 </mat-card>
+<div class="thanks" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

@@ -1,12 +1,22 @@
 export interface Question {
   question: string,
-  option1: string,
-  option2: string,
-  option3: string,
+  option1: {
+    text: string,
+    ratings: string[],
+  },
+  option2: {
+    text: string,
+    ratings: string[],
+  },
+  option3: {
+    text: string,
+    ratings: string[],
+  },
 }
 
 export interface Service {
   name: string,
   code: number,
+  rating: number,
   questions: Question[]
 }

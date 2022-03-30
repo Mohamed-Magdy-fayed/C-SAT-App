@@ -7,6 +7,7 @@ import { AdminToolService } from 'src/app/services/admin-tool.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Service } from 'src/app/interfaces/Service';
+import { removeService } from 'src/app/store/actions/feedback.action';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,7 +15,7 @@ import { Service } from 'src/app/interfaces/Service';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'code', 'questions', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'code', 'questions', 'rating', 'actions'];
   data: Service | undefined
   dataSource: any = []
   selection = new SelectionModel<Service>(true, []);
@@ -56,5 +57,23 @@ export class AdminDashboardComponent implements OnInit {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.code + 1}`;
+  }
+
+  deleteService = (code: number) => {
+    this.store.dispatch(removeService({ code }))
+    this.feedback.deleteService(code)
+  }
+
+  getRating = (element: Service) => {
+    let rating: number = 0
+    element.questions.map(e => {
+      rating = ((e.option1.ratings.length * 100) + (e.option2.ratings.length * 50)) / (e.option1.ratings.length + e.option2.ratings.length + e.option3.ratings.length)
+      e.option3.ratings.length
+    })
+    return !rating ? '0%' : `${rating.toFixed(1)}%`
+  }
+
+  clearRatings = (element: Service) => {
+    console.log(element)
   }
 }

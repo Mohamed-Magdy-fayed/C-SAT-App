@@ -60,6 +60,41 @@ const removeService = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Edit a service
+// @route   PUT /api/service/:code
+// @access  private
+const addRating = asyncHandler(async (req, res) => {
+  const ratings = req.body.ratings
+  const user = req.body.user
+  const code = req.params.code
+  
+  // Check for service
+  const service = await Service.findOne({ code })
+  
+  if (service) {
+    const data = []
+    ratings.map(async (rating, index) => {
+      const update = service.questions[index][rating].ratings.push(user)
+      
+      const doc = await Service.findOneAndUpdate({ code: code }, {
+        ...service,
+        questions: [
+          [index][rating] = update
+        ]
+      }, {
+        new: true
+      })
+      data.push(doc)
+    })
+    res.json({
+      updated: data
+    })
+  } else {
+    res.status(400)
+    throw new Error('Invalid service code')
+  }
+})
+
 // @desc    Get services
 // @route   GET /api/service
 // @access  Private
@@ -71,5 +106,6 @@ const getServices = asyncHandler(async (req, res) => {
 module.exports = {
   addService,
   removeService,
+  addRating,
   getServices,
 }

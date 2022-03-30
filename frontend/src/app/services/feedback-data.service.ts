@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Service } from '../interfaces/Service';
+import { Body } from '../interfaces/Body';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,13 @@ export class FeedbackDataService {
     private store: Store,
   ) { }
 
-  callAPI = async (api: string) => {
-
+  getToken = () => {
+    const local = localStorage.getItem('token')
+    if (local) {
+      return JSON.parse(local).token
+    } else {
+      return null
+    }
   }
 
   getServices = async () => {
@@ -34,10 +40,10 @@ export class FeedbackDataService {
             let array: Array<any> = []
             if (res) {
               this.res = res
-              this.res.forEach((service: any) => {
-                const { name, code, questions } = service
+              this.res.forEach((service: Service) => {
+                const { name, code, rating, questions } = service
                 array.push({
-                  name, code, questions
+                  name, code, rating, questions
                 })
               });
             }
@@ -67,6 +73,44 @@ export class FeedbackDataService {
         error: err => {
           console.log(err)
         }
+      })
+    }
+  }
+
+  deleteService = (code: number) => {
+    const token = this.getToken()
+    if (token) {
+      this.api.delete(`/api/service/${code}`, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`
+        })
+      }).subscribe({
+        next: res => {
+          return res
+        },
+        error: e => {
+          alert(e.message)
+        }
+      })
+    }
+  }
+
+  addRating = async (body: Body) => {
+    const token = this.getToken()
+
+    if (token) {
+      this.api.put(`/api/service/${body.code}`, body, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`
+        })
+      }).subscribe({
+        next: res => {
+          console.log(res)
+          this.getServices()
+        },
+        error: err => console.log(err)
       })
     }
   }

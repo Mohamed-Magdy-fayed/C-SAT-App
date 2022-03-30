@@ -1,3 +1,6 @@
+import { ToastService } from './../../services/toast.service';
+import { FeedbackDataService } from './../../services/feedback-data.service';
+import { getServices } from './../../store/selectors/feedback.selector';
 import { getUser } from '../../store/selectors/user.selector';
 import { Store } from '@ngrx/store';
 import { AdminToolService } from '../../services/admin-tool.service';
@@ -17,11 +20,14 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private admin: AdminToolService,
+    private feedback: FeedbackDataService,
     private store: Store,
+    private toast: ToastService,
   ) { }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    this.feedback.getServices()
+   }
 
   getCodeError () {
     if (this.code.hasError('required')) {
@@ -32,9 +38,18 @@ export class HomeComponent implements OnInit {
 
   startFeedback (event: Event) {
     event.preventDefault()
+    console.log(`ll`);
 
-    console.log(this.code.value);
 
-    this.router.navigate([`/megz/service/${this.code.value}`])
+    this.store.select(getServices).subscribe({
+      next: services => {
+        const match = services.filter(service => service.code == this.code.value)
+        if (match.length > 0) {
+          this.router.navigate([`/megz/service/${this.code.value}`])
+        } else {
+          this.toast.show('Invalid service code, Please try again!')
+        }
+      }
+    })
   }
 }

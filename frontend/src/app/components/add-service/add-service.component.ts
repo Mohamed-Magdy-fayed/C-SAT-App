@@ -88,15 +88,25 @@ export class AddServiceComponent implements OnInit {
     this.inputs.map(input => {
       const question = {
         question: input.controls.question.value,
-        option1: input.controls.option1.value,
-        option2: input.controls.option2.value,
-        option3: input.controls.option3.value,
+        option1: {
+          text: input.controls.option1.value,
+          ratings: [],
+        },
+        option2: {
+          text: input.controls.option2.value,
+          ratings: [],
+        },
+        option3: {
+          text: input.controls.option3.value,
+          ratings: [],
+        },
       }
       questions.push(question)
     })
     const service = {
       name: this.name.value,
       code: this.code.value,
+      rating: 0,
       questions,
     }
     this.resetForm()

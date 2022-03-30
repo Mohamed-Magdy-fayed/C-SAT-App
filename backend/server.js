@@ -1,4 +1,6 @@
+const path = require('path')
 const express = require('express')
+const os = require('os')
 const cors = require('cors')
 const dotenv = require('dotenv').config()
 const { errorHandler } = require('./middleware/errorMiddleware')
@@ -17,7 +19,7 @@ app.use('/api/service', require('./routes/serviceRoutes'))
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')))
+  app.use(express.static(path.join(__dirname, '../frontend/dist/customer-satisfaction-app')))
 
   app.get('*', (req, res) =>
     res.sendFile(
