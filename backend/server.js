@@ -1,10 +1,6 @@
-const path = require('path')
 const express = require('express')
-<<<<<<< HEAD
 const os = require('os')
-=======
 const path = require('path')
->>>>>>> 2bbf5f14afd76b6d631688fd9a4959c6ed27b9dd
 const cors = require('cors')
 const dotenv = require('dotenv').config()
 const { errorHandler } = require('./middleware/errorMiddleware')
